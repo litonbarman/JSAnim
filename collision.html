@@ -1,0 +1,90 @@
+<html><head>
+  <style>
+   .particle{
+     background:#fff;
+     position:absolute;
+     height:50px;
+     width:50px;
+     border-radius:25px;
+     z-index:5;
+   }
+  </style>
+</head><body onclick="setIt()" style="overflow:hidden;" id="can" bgcolor="#000"></body>
+</html>
+
+<script type="text/javascript">
+ var noBall = 30;
+ var particles = new Array(noBall);
+ for(x=0; x<noBall; x++){particles[x]=new particle(Math.round(Math.random()*window.innerWidth),Math.round(Math.random()*window.innerHeight), "#0af",x);}
+
+
+function setIt(){
+  uni =1;
+}
+
+ function particle(x, y, color, id, canvas="can"){
+  var part = document.createElement('div');
+  part.className = "particle";
+  part.style.top = y;
+  part.style.left = x;
+  part.style.background = color;
+  document.getElementById(canvas).appendChild(part);
+
+var newX = x, newY = y;
+// for cursor
+  part.onmousemove = function(){
+      x = event.clientX, y = event.clientY;
+      part.style.top = y-25;
+      part.style.left = x-25;
+      newX = x; newY =y;
+      testPos(id);
+  }
+
+
+setInterval(function(){
+   testPos(id);
+},1);
+
+
+////////
+function testPos(Id){
+ for(a=0; a<noBall; a++){
+   if(a==Id){
+     continue;
+   }
+   else{
+     if(distance(parseInt(particles[Id].style.left),parseInt(particles[Id].style.top), parseInt(particles[a].style.left), parseInt(particles[a].style.top))){
+   // working here
+       if(parseInt(particles[a].style.left) >= parseInt(particles[Id].style.left)){
+         particles[a].style.left = parseInt(particles[a].style.left)+2;
+       }else{
+         particles[a].style.left = parseInt(particles[a].style.left)-2;
+       }
+
+       if(parseInt(particles[a].style.top) >= parseInt(particles[Id].style.top)){
+         particles[a].style.top = parseInt(particles[a].style.top)+2;
+       }else{
+         particles[a].style.top = parseInt(particles[a].style.top)-2;
+       }
+     }
+   }
+ }
+}
+
+function distance(x1, y1, x2, y2){
+  if(Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2)) <= 50){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+
+////////
+
+  return part;
+ }
+
+
+</script>

@@ -1,0 +1,84 @@
+<html>
+ <head>
+   <style>
+     body{background:;overflow:hidden;}
+     .drop_rain_style{
+
+      }
+  </style>
+</head>
+<body id="back">
+
+</body>
+</html>
+<script type="text/javascript">
+ var drop_size=20,drop_posX=200, drop_background="back", drop_vanish=window.innerHeight, drop_falling_time = 2, drop_speed, drop_color="#00b";
+
+ function drop(drop_posX=200, drop_falling_time = 10, drop_speed=6,drop_size=20, drop_vanish=window.innerHeight,drop_color="#f0f",drop_background_surface="back"){
+   var posY=0, drop, t , dim = 1;
+   drop= document.createElement('div');
+   drop.className = "drop_rain_style";
+   drop.style.opacity = dim;
+   drop.style.borderRadius = drop_size+"px";
+   drop.style.boxShadow = "0px 0px 20px #00f";
+   drop.style.position = "absolute";
+   drop.style.top = -drop_size*4+"px";
+   drop.style.background=drop_color;
+   drop.style.height=drop_size;
+   drop.style.width=drop_size;
+   drop.style.left=drop_posX+"px";
+   document.getElementById(drop_background_surface).appendChild(drop);
+
+
+   t = setInterval(move,drop_falling_time);
+   function move(){
+   drop.style.top = posY+"px";
+   if(posY <= drop_vanish){
+     posY+=drop_speed;
+     diminish();
+   }
+   else{
+     clearInterval(t);
+     drop.remove();
+     delete this;
+   }
+ }
+ function diminish(){
+   if(dim != 0){
+     dim -= (0.001);
+     drop.style.opacity = dim;
+   }
+ }
+ }
+
+var wit =window.innerWidth+20;
+ setInterval(function(){new drop(Math.round(Math.random()*wit-10),  Math.round(Math.random()*10+1), 1, 10, window.innerHeight, drop_color,"back")},100);
+
+
+function color(){
+    var c=Math.round(Math.random()*16);
+    if(c<10){
+      return c;
+    }else{
+      if(c==10){
+        return 'a';
+      }
+      else if(c==11){
+        return 'b';
+      }
+      else if(c==12){
+        return 'c';
+      }
+      else if(c==13){
+        return 'd';
+      }
+      else if(c==14){
+        return 'e';
+      }
+      else if(c==15){
+        return 'f';
+      }
+    }
+  }
+
+</script>

@@ -1,0 +1,50 @@
+<html><head><style>
+  .particles{
+
+  }
+</style></head><body id="canvas"></body></html>
+
+<script type="text/javascript">
+  function explode(canvas, size, radius, x, y){
+    var part = document.createElement('div');
+    part.className = "particles";
+    part.style.position = "absolute";
+    part.style.height = size;
+    part.style.width = size;
+    part.style.background = "#"+color()+color()+color();
+    part.style.borderRadius = size+"px";
+    part.style.top = Math.round(y+Math.random()*radius);
+    part.style.left = Math.round(x+Math.random()*radius);
+
+    document.getElementById(canvas).appendChild(part);
+    setTimeout(function(){part.remove();},10);
+
+    function color(){
+        var c=Math.round(Math.random()*16);
+        if(c<10){
+          return 'a';
+        }
+        else{
+          if(c==10){
+            return 'a';
+          }
+          else if(c==11){
+            return 'b';
+          }
+          else if(c==12){
+            return 'c';
+          }
+          else if(c==13){
+            return 'd';
+          }
+          else if(c==14){
+            return 'e';
+          }
+          else if(c==15){
+            return 'f';
+          }
+        }
+      }
+  }
+  setInterval(function(){new explode("canvas", 20, 400, 100, 100);}, 1);
+</script>

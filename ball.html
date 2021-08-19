@@ -1,0 +1,70 @@
+<html>
+ <head>
+   <style>
+    body{background-color:white;overflow:hidden;}
+    .ball{
+      position:absolute;
+      background-color:#0f0;
+      height:20px;
+      width:20px;
+      border-radius:20px;
+      border:1px solid #fff;
+      box-shadow:-20px -10px 60px #0f0;
+    }
+   </style>
+ </head>
+ <body id="can">
+
+ </body>
+</html>
+<script>
+var posX=0
+ function ball(posX=0){
+   var ball =  document.createElement('div'), posY=0, dir=0, mass=1, t=1, test=0, interval, cons=30;
+
+   ball.className = 'ball';
+   ball.style.position = "absolute";
+   ball.style.top = posY+"px";
+   ball.style.left = posX+"px";
+
+
+   document.getElementById('can').appendChild(ball);
+
+   function moveY(){
+     if(dir==0){
+      posY += mass*t;
+      t += 0.05;
+      if(posY >= window.innerHeight+cons){
+        dir=1;
+      }
+     }
+     else{
+       posY -= mass*t;
+         if(t>0){
+           t -= 0.08;
+         }
+         else{
+           if(posY>=window.innerHeight-2*cons){
+             test++;
+             below();
+           }
+           dir=0;
+           t=1;
+         }
+
+     }
+     ball.style.top = posY+"px";
+   }
+   function below(){
+     if(test > 6 ){
+       clearInterval(interval);
+       ball.remove();
+       delete this;
+     }
+   }
+   interval = setInterval(moveY,);
+ }
+
+setInterval(function(){new ball(Math.random()*(window.innerWidth+20))-40;},350);
+
+</script>

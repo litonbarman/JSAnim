@@ -1,0 +1,52 @@
+<html>
+ <head>
+   <style>
+   .particle{
+     background:#99f;
+     height:10px;
+     width:10px;
+     border-radius:10px;
+     position:absolute;
+   }
+   </style>
+ </head>
+ <body id="can">
+ </body>
+</html>
+<script type="text/javascript">
+  function create_particle(){
+    var x = document.createElement('div');
+    x.className = "particle";
+    document.getElementById('can').appendChild(x);
+
+    x.style.top = Math.round(Math.random()*600);
+    x.style.left = Math.round(Math.random()*600);
+
+    var posX =Math.round(Math.random()*600);
+    var posY =Math.round(Math.random()*600);
+
+    setInterval(
+    function(){
+      if(Math.round(Math.random())==1){
+        posX++;
+      }
+      else{posX--;}
+      if(Math.round(Math.random())==1){
+        posY++;
+      }
+      else{posY--;}
+      x.style.top =  posY+"px";
+      x.style.left =  posX+"px";
+    }
+    ,30);
+    return x;
+  }
+
+var a;
+for(a=0; a<200; a++){
+ create_particle();
+}
+
+
+
+</script>

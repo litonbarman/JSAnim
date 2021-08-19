@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <style>
+      body{
+        background:black;
+      }
+      #container{
+        border:1px solid red;
+        height:400px;
+        width:400px;
+        position:fixed;
+        overflow:hidden;
+      }
+      .particle{
+        border:1px solid #99f;
+        height:20px;
+        width:20px;
+        border-radius:20px;
+        position:absolute;
+        top:0px;
+        left:0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="particle" id="particle1"></div>
+    </div>
+  </body>
+</html>
+<script>
+function particle(){
+  var posY=0, posX=0, directionY=0, directionX=0, count=0,  t=0;
+
+  function moveY(){
+    document.getElementById('particle1').style.top=posY+"px";
+    if(directionY==0){
+      posY++;
+      if(posY==380){
+        directionY=1;
+      }
+    }
+    else{
+      posY--;
+      if(posY==0){
+        directionY=0;
+      }
+    }
+  }
+  function moveX(){
+    document.getElementById('particle1').style.left=posX+"px";
+    if(directionX==0){
+      posX++;
+      if(posX==380){
+        directionX=1;
+      }
+    }
+    else{
+      posX--;
+      if(posX==0){
+        directionX=0;
+      }
+    }
+  }
+
+  setInterval(moveX,3);
+  setInterval(moveY,7);
+}
+
+new particle();
+
+</script>

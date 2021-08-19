@@ -1,0 +1,220 @@
+<html><head></head><body id="canvas" style="overflow:hidden;background:#000;"><body></html>
+
+<script type="text/javascript">
+  function rocket(fire_canvas,size = 10, _rocketX, _rocketY, height = 20, thrust = 5){
+    var _rocket = document.createElement('div');
+     var cr;  // for explosion timer
+    _rocket.className = "rockets";
+    _rocket.style.background = "#"+color()+color()+color();
+    _rocket.style.position = "absolute";
+    _rocket.style.height = (2*size)+"px";
+    _rocket.style.width = size+"px";
+    _rocket.style.borderRadius = size+"px "+size+"px "+0+"px "+0+"px ";
+    _rocket.style.boxShadow = "0px 0px 90px #fff";
+
+    _rocket.style.top = _rocketY;
+    _rocket.style.left = _rocketX;
+    var flyT, fires = setInterval(function(){new fire();},30);
+
+    flyT = setInterval(fly,1);
+    
+	function color(){
+        var c=Math.round(Math.random()*16);
+        if(c<=8){
+          return 'f';
+        }
+        else if(c>8&&c<10){
+          return c;
+        }else{
+          if(c==10){
+            return 'a';
+          }
+          else if(c==11){
+            return 'b';
+          }
+          else if(c==12){
+            return 'c';
+          }
+          else if(c==13){
+            return 'd';
+          }
+          else if(c==14){
+            return 'e';
+          }
+          else if(c==15){
+            return 'f';
+          }
+        }
+    }
+	
+    function fly(){
+      _rocket.style.top = _rocketY;
+      _rocketY -= thrust;
+      if((_rocketY<=height+10)){
+        document.getElementById(fire_canvas).style.background = "#"+color()+color()+color()+color()+color()+color();
+      }
+      if(_rocketY <= height){
+        clearInterval(flyT);
+        // on reaching max height stop fire
+        clearInterval(fires);
+        // remove rocket and explode (explode not defined yet)
+        document.getElementById(fire_canvas).style.background = "#000";
+        _rocket.remove();
+        cr = setInterval(function(){new create();}, 1);
+        setTimeout(function(){clearInterval(cr);}, 1000);
+      }
+    }
+
+        
+function color(){
+    var c=Math.round(Math.random()*16);
+    if(c<10){
+      return c;
+    }else{
+      if(c==10){
+        return 'a';
+      }
+      else if(c==11){
+        return 'b';
+      }
+      else if(c==12){
+        return 'c';
+      }
+      else if(c==13){
+        return 'd';
+      }
+      else if(c==14){
+        return 'e';
+      }
+      else if(c==15){
+        return 'f';
+      }
+    }
+  }
+
+    function create(){
+      new explode(fire_canvas, size/2, 400, _rocketX-200, _rocketY-200);
+    }
+
+
+    document.getElementById(fire_canvas).appendChild(_rocket);
+
+    function fire(){
+      var _fire = document.createElement('div');
+
+      _fire.className = "rockets";
+      _fire.style.background = "#"+color()+color()+color();
+      _fire.style.position = "absolute";
+      _fire.style.top = (2*size)+"px";
+      _fire.style.height = (size/4)+"px";
+      _fire.style.width = Math.round(size/10)+"px";
+
+      _rocket.appendChild(_fire);
+
+      var x = ((size/4)+Math.round(Math.random()*size)-6), y = (2*size), fire_Yt, fire_Xt, xdir = Math.round(Math.random());
+
+      _fire.style.left = x;
+
+      function fireY(){
+         _fire.style.top = y;
+         if(y>=(4*size)){
+            clearInterval(fire_Yt);
+            clearInterval(fire_Xt);
+            _fire.remove();
+            delete this;
+         }
+         y++;
+      }
+
+      function fireX(){
+          if(xdir == 0){x++;}else{x--;}
+         _fire.style.left = x;
+      }
+      fire_Yt = setInterval(fireY,1)
+      fire_Xt = setInterval(fireX,20)
+    }
+    
+function color(){
+    var c=Math.round(Math.random()*16);
+    if(c<10){
+      return c;
+    }else{
+      if(c==10){
+        return 'a';
+      }
+      else if(c==11){
+        return 'b';
+      }
+      else if(c==12){
+        return 'c';
+      }
+      else if(c==13){
+        return 'd';
+      }
+      else if(c==14){
+        return 'e';
+      }
+      else if(c==15){
+        return 'f';
+      }
+    }
+  }
+
+  }
+
+  function explode(canvas, size, radius, x, y){
+    var part = document.createElement('div');
+    part.className = "particles";
+    part.style.position = "absolute";
+    part.style.height = size;
+    part.style.width = size;
+    part.style.background = "#"+color()+color()+color();
+    part.style.borderRadius = size+"px";
+	part.style.boxShadow = "0px 0px 40px #fff";
+    part.style.top = Math.round(y+Math.random()*radius);
+    part.style.left = Math.round(x+Math.random()*radius);
+
+    document.getElementById(canvas).appendChild(part);
+    setTimeout(function(){part.remove();},10);
+
+    function color(){
+        var c=Math.round(Math.random()*16);
+        if(c<=8){
+          return 'f';
+        }
+        else if(c>8&&c<10){
+          return c;
+        }else{
+          if(c==10){
+            return 'a';
+          }
+          else if(c==11){
+            return 'b';
+          }
+          else if(c==12){
+            return 'c';
+          }
+          else if(c==13){
+            return 'd';
+          }
+          else if(c==14){
+            return 'e';
+          }
+          else if(c==15){
+            return 'f';
+          }
+        }
+    }
+
+  }
+
+setInterval( make,500);
+
+function make(){
+ setTimeout(create, Math.round(1+Math.random()*4000));
+}
+
+function create(){
+ new rocket("canvas", Math.round(10+Math.random()*20) , Math.round(Math.random()*window.innerWidth) ,window.innerHeight, Math.round(Math.random()*400), Math.round(1+Math.random()*4));
+}
+</script>

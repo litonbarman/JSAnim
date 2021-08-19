@@ -1,0 +1,60 @@
+<html>
+ <head>
+   <style>
+     .circle{
+       position:absolute;
+       height:20px;
+       width:20px;
+       border-radius:20px;
+     }
+   </style>
+ </head>
+<body id="can" style="overflow:hidden;">
+
+</body>
+</html>
+
+<script type="text/javascript">
+  function color(){
+    var c=Math.round(Math.random()*16);
+    if(c<10){
+      return c;
+    }else{
+      if(c==10){
+        return 'a';
+      }
+      else if(c==11){
+        return 'b';
+      }
+      else if(c==12){
+        return 'c';
+      }
+      else if(c==13){
+        return 'd';
+      }
+      else if(c==14){
+        return 'e';
+      }
+      else if(c==15){
+        return 'f';
+      }
+    }
+  }
+   function circle(){
+     var cir;
+     cir = document.createElement('div');
+     cir.className = "circle";
+     cir.style.background= "#"+color()+color()+color();
+
+     cir.style.top = Math.round(Math.random()*window.innerHeight)+"px";
+     cir.style.left = Math.round(Math.random()*window.innerWidth)+"px";
+
+
+     document.getElementById('can').appendChild(cir);
+     setTimeout(function(){
+       cir.remove();
+       delete this;
+     },1000);
+   }
+setInterval(function(){new circle();}, 20);
+</script>
