@@ -1,4 +1,4 @@
-# JavaScript_fun_Library
+# JSAnim
 
 ## These are collection of javascript library to create some fancy web background with animated features use it and enjoy it...
 
